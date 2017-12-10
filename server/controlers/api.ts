@@ -8,7 +8,7 @@ export class API {
         const newArticle: ArticleInterface = req.body;
         if (!Category[newArticle.category]) {
             res.status(412).send({
-                error: 'category does not exist'
+                error: 'category does not exist.'
             })
         } else {
             Article.create(newArticle)
