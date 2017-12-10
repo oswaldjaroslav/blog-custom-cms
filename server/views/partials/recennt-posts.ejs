@@ -1,0 +1,12 @@
+<div class="widget widget-recent-posts">		
+    <h3 class="widget-title">Recent Posts</h3>		
+    <ul>
+        <% articles.forEach(function(article) { %>
+
+            <li>
+                <a href="#"><%= article.title %></a>
+            </li>
+
+        <% }) %>
+    </ul>
+</div>
