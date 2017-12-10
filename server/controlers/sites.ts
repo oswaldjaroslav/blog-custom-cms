@@ -8,5 +8,8 @@ export class Sites {
                 res.render('index', { articles })
             }).catch(err => next(err))
         }
+
+        public static getAdminPage = (req: Request, res: Response, next: NextFunction) =>
+            res.render('admin')
     
     }

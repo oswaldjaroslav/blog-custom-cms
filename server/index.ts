@@ -15,6 +15,9 @@ app.use(bodyParser.json({type: '*/*'}));
 
 app.use('/css', express.static('public/assets/css'));
 app.use('/js', express.static('public/assets/js'));
+app.use('/react', express.static('node_modules/react/umd'));
+app.use('/reactDom', express.static('node_modules/react-dom/umd'));
+app.use('/CMS', express.static('dist/assets'));
 routes(app);
 
 const port = process.env.port || 3000;
