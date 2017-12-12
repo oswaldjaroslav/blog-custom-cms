@@ -20,4 +20,14 @@ export class API {
         }
     }
 
+    public static getArticles = (req: Request, res: Response, next: NextFunction) => {
+        Article.find({})
+            .then(
+                (articles: Array<ArticleInterface>) => {
+                    res.send(articles);
+                }
+            )
+            .catch(err => next(err))
+    }
+
 }

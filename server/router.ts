@@ -9,6 +9,7 @@ export const routes = (app: Express) => {
 
     // CRUD for articles
 
-    app.post('/API/article', API.createArticle)
+    app.post('/API/article', API.createArticle);
+    app.get('/API/article', API.getArticles);
 
 }
