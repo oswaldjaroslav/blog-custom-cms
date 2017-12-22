@@ -4,9 +4,14 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { rootReducer } from '../reducers/root.reducer';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
 
 import { MenuBar } from './menu-bar.component';
-import { DrawerComponent } from './draver.component';
+import { HomePage } from './home-page.component';
+
+import { ArticlesList } from '../containers/articles-list.container';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
@@ -35,10 +40,23 @@ export class App extends React.Component<{}, AppState> {
             <Provider store={createStoreWithMiddleware(rootReducer)} >
                 <MuiThemeProvider>
                     <div className="app-component" >
-                        <MenuBar handleMenuClick={this.handleMenuClick} />
-                        <DrawerComponent 
-                        open={drawerOpened} 
-                        onRequestChange={(open: boolean) => {this.setState({drawerOpened: open})}} />
+                        <BrowserRouter>
+                            <div>
+                                <Drawer 
+                                docked={true} 
+                                open={drawerOpened} 
+                                onRequestChange={(open: boolean) => {this.setState({ drawerOpened: open })}}>
+                                    <MenuItem>
+                                        <Link to="/admin/articles" >Articles</Link>
+                                    </MenuItem>
+                                </Drawer>
+                                <MenuBar handleMenuClick={this.handleMenuClick} />
+                                <Switch>
+                                    <Route exact path="/admin" component={HomePage} />
+                                    <Route path="/admin/articles" component={ArticlesList} />
+                                </Switch>
+                            </div>
+                        </BrowserRouter>
                     </div>
                 </MuiThemeProvider>
             </Provider>

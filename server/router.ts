@@ -6,6 +6,7 @@ export const routes = (app: Express) => {
 
     app.get('/', Sites.getIndexPage);
     app.get('/admin', Sites.getAdminPage);
+    app.get('/admin/*', Sites.getAdminPage);
 
     // CRUD for articles
 
