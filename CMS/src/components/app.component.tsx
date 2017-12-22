@@ -4,13 +4,11 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { rootReducer } from '../reducers/root.reducer';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
-import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
+import { BrowserRouter, Route, Switch, Link, withRouter } from 'react-router-dom';
 
+import { DrawerComponent } from './drawer.component';
 import { MenuBar } from './menu-bar.component';
 import { HomePage } from './home-page.component';
-
 import { ArticlesList } from '../containers/articles-list.container';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
@@ -18,6 +16,7 @@ const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 export interface AppState {
     drawerOpened?: boolean;
 }
+
 
 export class App extends React.Component<{}, AppState> {
 
@@ -42,14 +41,9 @@ export class App extends React.Component<{}, AppState> {
                     <div className="app-component" >
                         <BrowserRouter>
                             <div>
-                                <Drawer 
-                                docked={true} 
+                                <DrawerComponent 
                                 open={drawerOpened} 
-                                onRequestChange={(open: boolean) => {this.setState({ drawerOpened: open })}}>
-                                    <MenuItem>
-                                        <Link to="/admin/articles" >Articles</Link>
-                                    </MenuItem>
-                                </Drawer>
+                                onRequestChange={(open: boolean) => { this.setState({ drawerOpened: open }) }} />
                                 <MenuBar handleMenuClick={this.handleMenuClick} />
                                 <Switch>
                                     <Route exact path="/admin" component={HomePage} />
