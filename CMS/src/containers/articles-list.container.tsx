@@ -5,30 +5,55 @@ import { RootReducer } from '../reducers/root.reducer';
 import { ArticleType } from '../types/article.type';
 import { ArticleItem } from '../components/article-item.component';
 import Paper from 'material-ui/Paper';
+import { ArticlesTable } from '../components/articles-table.component';
+import { ArticleAddDialog } from '../components/dialogs/article-add-dialog.component';
+import RaisedButton from 'material-ui/RaisedButton';
 
+ 
 const styles = {
     paper: {
         margin: 20,
         textAlign: 'center',
         display: 'inline-block'
+    },
+    button: {
+        margin: 20
     }
 }
 
 
 interface ArticleListProps extends StateToProps, DispatchToProps {}
+interface ArticleListState {
+    addDialogOpened: boolean;
+}
 
-class ArticleListBase extends React.Component<ArticleListProps> {
+class ArticleListBase extends React.Component<ArticleListProps, ArticleListState> {
+
+    constructor(props: ArticleListProps) {
+        super(props);
+        this.state = {
+            addDialogOpened: false
+        }
+    }
 
     componentWillMount() {
         this.updateArticles();
     }
 
     render() {
+        const { articles } = this.props;
+        const { addDialogOpened } = this.state;
         return (
             <div className="articles-container">
                 <Paper zDepth={1} style={styles.paper} >
-
+                    <ArticlesTable articles={articles} />
                 </Paper>
+                <RaisedButton label="New Article" secondary={true} 
+                style={styles.button}
+                onClick={() => { this.setState({ addDialogOpened: true }) }} />
+                <ArticleAddDialog 
+                open={addDialogOpened} 
+                closeDialog={() => { this.setState({ addDialogOpened: false }) }} />
             </div>
         )
     }
