@@ -9,7 +9,7 @@ import { BrowserRouter, Route, Switch, Link, withRouter } from 'react-router-dom
 import { DrawerComponent } from './drawer.component';
 import { MenuBar } from './menu-bar.component';
 import { HomePage } from './home-page.component';
-import { ArticlesList } from '../containers/articles-list.container';
+import { ArticleList } from '../containers/articles-list.container';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
@@ -47,7 +47,7 @@ export class App extends React.Component<{}, AppState> {
                                 <MenuBar handleMenuClick={this.handleMenuClick} />
                                 <Switch>
                                     <Route exact path="/admin" component={HomePage} />
-                                    <Route path="/admin/articles" component={ArticlesList} />
+                                    <Route path="/admin/articles" component={ArticleList} />
                                 </Switch>
                             </div>
                         </BrowserRouter>
