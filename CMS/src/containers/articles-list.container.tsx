@@ -6,7 +6,7 @@ import { ArticleType } from '../types/article.type';
 import { ArticleItem } from '../components/article-item.component';
 import Paper from 'material-ui/Paper';
 import { ArticlesTable } from '../components/articles-table.component';
-import { ArticleAddDialog } from '../components/dialogs/article-add-dialog.component';
+import ArticleAddDialog from '../components/dialogs/article-add-dialog.component';
 import RaisedButton from 'material-ui/RaisedButton';
 
  
