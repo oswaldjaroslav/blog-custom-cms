@@ -1,5 +1,7 @@
 import * as React from 'react';
 import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import { FieldsProps } from 'redux-form';
 
 interface FormFieldProps  {
@@ -15,4 +17,14 @@ export const TextInput = (props: FormFieldProps | any) =>
     floatingLabelText={props.label}
     errorText={props.meta.touched && props.meta.error}
     {...props.input} 
+    {...props.custom} />
+
+export const Selector = (props: FormFieldProps | any) =>
+    <SelectField 
+    style={{ width: '100%' }}
+    floatingLabelText={props.label} 
+    errorText={props.meta.touched && props.meta.error} 
+    {...props.input}
+    onChange={(event, index, value) => { props.input.onChange(value) }} 
+    children={props.children} 
     {...props.custom} />

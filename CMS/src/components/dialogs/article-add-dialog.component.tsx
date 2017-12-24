@@ -4,19 +4,22 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { reduxForm, InjectedFormProps, Field } from 'redux-form';
 import { FlexParrent, FlexInputField } from '../../styled.components';
-import { TextInput } from '../form-fields.component';
+import { TextInput, Selector } from '../form-fields.component';
 import { ArticleType } from '../../types/article.type';
+import { CategoryType } from '../../types/category.type';
+import { MenuItem } from 'material-ui';
 
 interface ArticleAddDialogProps extends InjectedFormProps {
     open: boolean;
     closeDialog(): any;
+    categories: Array<CategoryType>;
 }
 
 interface ArticleAddState {
 
 }
 
-export class ArticleAddDialog extends React.Component<ArticleAddDialogProps, ArticleAddState> {
+class ArticleAddDialog extends React.Component<ArticleAddDialogProps, ArticleAddState> {
 
     constructor(props: ArticleAddDialogProps) {
         super(props);
@@ -30,7 +33,13 @@ export class ArticleAddDialog extends React.Component<ArticleAddDialogProps, Art
         }
     }
 
+    renderCategories = () =>
+        this.props.categories.map(i => (
+            <MenuItem key={i._id} value={i._id} primaryText={i.name} />
+        ))
+
     render() {
+        console.log(this.props.categories);
         const { open, closeDialog, handleSubmit } = this.props;
         const actions = [
             <FlatButton
@@ -49,7 +58,8 @@ export class ArticleAddDialog extends React.Component<ArticleAddDialogProps, Art
             <div className="article-add-dialog-component" >
                 <Dialog 
                 open={open}
-                actions={actions} >
+                actions={actions}
+                autoDetectWindowHeight={false} >
                     <form onSubmit={handleSubmit(this.handleSubmit)} >
                         <FlexParrent wrap="true" >
                             <FlexInputField>
@@ -63,6 +73,14 @@ export class ArticleAddDialog extends React.Component<ArticleAddDialogProps, Art
                                 name="author" 
                                 component={TextInput} 
                                 label="Author" />
+                            </FlexInputField>
+                            <FlexInputField>
+                                <Field 
+                                name="categorie" 
+                                component={Selector} 
+                                label="Categorie" >
+                                    {this.renderCategories()}
+                                </Field>
                             </FlexInputField>
                         </FlexParrent>
                     </form>

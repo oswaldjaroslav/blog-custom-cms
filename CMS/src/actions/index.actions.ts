@@ -18,3 +18,17 @@ export function getArticles() {
             )
     }
 }
+
+export function getCategories() {
+    return function(dispatch: Dispatch<Action<any>>) {
+        axios.get(Endpoints.getCategories)
+            .then(
+                (response: AxiosResponse) => {
+                    dispatch({
+                        type: Actions.GET_CATEGORY,
+                        payload: response.data
+                    })
+                }
+            )
+    }
+}

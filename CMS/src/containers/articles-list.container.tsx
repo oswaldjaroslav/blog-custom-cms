@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { getArticles } from '../actions/index.actions';
+import { getArticles, getCategories } from '../actions/index.actions';
 import { RootReducer } from '../reducers/root.reducer';
 import { ArticleType } from '../types/article.type';
 import { ArticleItem } from '../components/article-item.component';
@@ -8,6 +8,7 @@ import Paper from 'material-ui/Paper';
 import { ArticlesTable } from '../components/articles-table.component';
 import ArticleAddDialog from '../components/dialogs/article-add-dialog.component';
 import RaisedButton from 'material-ui/RaisedButton';
+import { CategoryType } from '../types/category.type';
 
  
 const styles = {
@@ -38,6 +39,7 @@ class ArticleListBase extends React.Component<ArticleListProps, ArticleListState
 
     componentWillMount() {
         this.updateArticles();
+        this.props.getCategories();
     }
 
     render() {
@@ -53,6 +55,7 @@ class ArticleListBase extends React.Component<ArticleListProps, ArticleListState
                 onClick={() => { this.setState({ addDialogOpened: true }) }} />
                 <ArticleAddDialog 
                 open={addDialogOpened} 
+                categories={this.props.categories}
                 closeDialog={() => { this.setState({ addDialogOpened: false }) }} />
             </div>
         )
@@ -66,17 +69,23 @@ class ArticleListBase extends React.Component<ArticleListProps, ArticleListState
 
 interface StateToProps {
     articles: Array<ArticleType>;
+    categories: Array<CategoryType>;
 }
 
 interface DispatchToProps {
     getArticles(): any;
+    getCategories(): any;
+    
 }
 
 const mapStateToProps = (state: RootReducer): StateToProps => {
     return {
-        articles: state.articles
+        articles: state.articles,
+        categories: state.categories,
     }
 }
 
 export const ArticleList =
-    connect<StateToProps, DispatchToProps, any>(mapStateToProps, {getArticles})(ArticleListBase)
+    connect<StateToProps, DispatchToProps, any>(mapStateToProps, 
+        {getArticles, getCategories}
+    )(ArticleListBase)
