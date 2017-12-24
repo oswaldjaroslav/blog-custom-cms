@@ -1,9 +1,9 @@
 import { Document, Schema, Model, model } from 'mongoose';
-import { Category } from '../enums/category.enum';
+import { CategoryInterface } from './category.mongoose';
 
 export interface ArticleInterface {
     title?: string;
-    category?: Category;
+    category?: CategoryInterface;
     date?: Date;
     author?: string;
     comments?: Array<string>;
@@ -16,7 +16,10 @@ export interface ArticleModel extends ArticleInterface, Document {
 
 export let ArticleSchema: Schema = new Schema({
     title: String,
-    catergoty: String,
+    catergoty: {
+        type: Schema.Types.ObjectId,
+        ref: 'Category' 
+    },
     date: {
         type: Date,
         default: new Date()

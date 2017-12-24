@@ -13,4 +13,9 @@ export const routes = (app: Express) => {
     app.post('/API/article', API.createArticle);
     app.get('/API/article', API.getArticles);
 
+    // CRUD for categories
+
+    app.post('/API/category', API.createCategorie);
+    app.get('/API/category', API.getCategories);
+
 }
