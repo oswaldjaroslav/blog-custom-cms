@@ -8,6 +8,8 @@ import { TextInput, Selector } from '../form-fields.component';
 import { ArticleType } from '../../types/article.type';
 import { CategoryType } from '../../types/category.type';
 import { MenuItem } from 'material-ui';
+import { Editor, EditorState } from 'draft-js';
+import "draft-js/dist/Draft.css";
 
 interface ArticleAddDialogProps extends InjectedFormProps {
     open: boolean;
@@ -16,13 +18,16 @@ interface ArticleAddDialogProps extends InjectedFormProps {
 }
 
 interface ArticleAddState {
-
+    editorState: EditorState;
 }
 
 class ArticleAddDialog extends React.Component<ArticleAddDialogProps, ArticleAddState> {
 
     constructor(props: ArticleAddDialogProps) {
         super(props);
+        this.state = {
+            editorState: EditorState.createEmpty()
+        }
     }
 
     handleSubmit = (data: ArticleType) => {
@@ -39,7 +44,6 @@ class ArticleAddDialog extends React.Component<ArticleAddDialogProps, ArticleAdd
         ))
 
     render() {
-        console.log(this.props.categories);
         const { open, closeDialog, handleSubmit } = this.props;
         const actions = [
             <FlatButton
@@ -83,6 +87,9 @@ class ArticleAddDialog extends React.Component<ArticleAddDialogProps, ArticleAdd
                                 </Field>
                             </FlexInputField>
                         </FlexParrent>
+                        <Editor 
+                        editorState={this.state.editorState} 
+                        onChange={(editorState: EditorState) => {this.setState({editorState})}} />
                     </form>
                 </Dialog>
             </div>
