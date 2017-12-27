@@ -16,7 +16,7 @@ export interface ArticleModel extends ArticleInterface, Document {
 
 export let ArticleSchema: Schema = new Schema({
     title: String,
-    catergoty: {
+    category: {
         type: Schema.Types.ObjectId,
         ref: 'Category' 
     },

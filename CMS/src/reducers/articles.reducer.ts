@@ -8,6 +8,9 @@ export default function(state: Array<ArticleType> = [], action: Action<any>) {
         case Actions.GET_ARTICLES:
             return action.payload;
 
+        case Actions.CREATE_ARTICLE:
+            return [...state, action.payload];
+
         default:
             return state;
     }

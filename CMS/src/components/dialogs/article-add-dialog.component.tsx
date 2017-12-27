@@ -15,6 +15,7 @@ import { stateToHTML } from 'draft-js-export-html';
 interface ArticleAddDialogProps extends InjectedFormProps {
     open: boolean;
     closeDialog(): any;
+    submitArticle(article: ArticleType): void;
     categories: Array<CategoryType>;
 }
 
@@ -35,7 +36,9 @@ class ArticleAddDialog extends React.Component<ArticleAddDialogProps, ArticleAdd
         if (this.props.valid) {
             const { textEditorValue } = this.state;
             const newArticle: ArticleType = {...data, message: textEditorValue};
-            console.log(newArticle);
+            this.props.submitArticle(newArticle);
+            this.props.closeDialog();
+            this.props.reset();
         } else {
             this.props.touch();
         }
@@ -88,7 +91,7 @@ class ArticleAddDialog extends React.Component<ArticleAddDialogProps, ArticleAdd
                             </FlexInputField>
                             <FlexInputField>
                                 <Field 
-                                name="categorie" 
+                                name="category" 
                                 component={Selector} 
                                 label="Categorie" >
                                     {this.renderCategories()}

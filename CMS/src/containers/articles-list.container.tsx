@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { getArticles, getCategories } from '../actions/index.actions';
+import { getArticles, getCategories, createArticle } from '../actions/index.actions';
 import { RootReducer } from '../reducers/root.reducer';
 import { ArticleType } from '../types/article.type';
 import { ArticleItem } from '../components/article-item.component';
@@ -43,7 +43,7 @@ class ArticleListBase extends React.Component<ArticleListProps, ArticleListState
     }
 
     render() {
-        const { articles } = this.props;
+        const { articles, createArticle } = this.props;
         const { addDialogOpened } = this.state;
         return (
             <div className="articles-container">
@@ -56,7 +56,8 @@ class ArticleListBase extends React.Component<ArticleListProps, ArticleListState
                 <ArticleAddDialog 
                 open={addDialogOpened} 
                 categories={this.props.categories}
-                closeDialog={() => { this.setState({ addDialogOpened: false }) }} />
+                closeDialog={() => { this.setState({ addDialogOpened: false }) }} 
+                submitArticle={createArticle} />
             </div>
         )
     }
@@ -75,6 +76,7 @@ interface StateToProps {
 interface DispatchToProps {
     getArticles(): any;
     getCategories(): any;
+    createArticle(article: ArticleType): void;
     
 }
 
@@ -87,5 +89,5 @@ const mapStateToProps = (state: RootReducer): StateToProps => {
 
 export const ArticleList =
     connect<StateToProps, DispatchToProps, any>(mapStateToProps, 
-        {getArticles, getCategories}
+        {getArticles, getCategories, createArticle}
     )(ArticleListBase)
