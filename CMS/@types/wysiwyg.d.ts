@@ -67,6 +67,7 @@ declare module "react-draft-wysiwyg" {
 		toolbarOnFocus?: boolean;
 		spellCheck?: boolean;
 		stripPastedStyles?: boolean;
+		initialEditorState?: any;
 		toolbar?: any;
 		toolbarCustomButtons?: any[];
 		toolbarClassName?: string;

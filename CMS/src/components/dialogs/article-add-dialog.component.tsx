@@ -8,8 +8,9 @@ import { TextInput, Selector } from '../form-fields.component';
 import { ArticleType } from '../../types/article.type';
 import { CategoryType } from '../../types/category.type';
 import { MenuItem } from 'material-ui';
-import { Editor, EditorState } from 'draft-js';
-import "draft-js/dist/Draft.css";
+import { TextEditor } from '../text-editor-draft.component';
+import { EditorState } from 'draft-js';
+import { stateToHTML } from 'draft-js-export-html';
 
 interface ArticleAddDialogProps extends InjectedFormProps {
     open: boolean;
@@ -18,7 +19,7 @@ interface ArticleAddDialogProps extends InjectedFormProps {
 }
 
 interface ArticleAddState {
-    editorState: EditorState;
+    textEditorValue: string;
 }
 
 class ArticleAddDialog extends React.Component<ArticleAddDialogProps, ArticleAddState> {
@@ -26,13 +27,15 @@ class ArticleAddDialog extends React.Component<ArticleAddDialogProps, ArticleAdd
     constructor(props: ArticleAddDialogProps) {
         super(props);
         this.state = {
-            editorState: EditorState.createEmpty()
+            textEditorValue: null
         }
     }
 
     handleSubmit = (data: ArticleType) => {
         if (this.props.valid) {
-
+            const { textEditorValue } = this.state;
+            const newArticle: ArticleType = {...data, message: textEditorValue};
+            console.log(newArticle);
         } else {
             this.props.touch();
         }
@@ -42,6 +45,11 @@ class ArticleAddDialog extends React.Component<ArticleAddDialogProps, ArticleAdd
         this.props.categories.map(i => (
             <MenuItem key={i._id} value={i._id} primaryText={i.name} />
         ))
+
+    onEditorStateChange = (editorState: EditorState) => {
+        let html = stateToHTML(editorState.getCurrentContent());
+        this.setState({ textEditorValue: html });
+    }
 
     render() {
         const { open, closeDialog, handleSubmit } = this.props;
@@ -87,9 +95,8 @@ class ArticleAddDialog extends React.Component<ArticleAddDialogProps, ArticleAdd
                                 </Field>
                             </FlexInputField>
                         </FlexParrent>
-                        <Editor 
-                        editorState={this.state.editorState} 
-                        onChange={(editorState: EditorState) => {this.setState({editorState})}} />
+                        <TextEditor 
+                        editorStateChange={this.onEditorStateChange} />
                     </form>
                 </Dialog>
             </div>
