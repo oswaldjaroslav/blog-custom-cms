@@ -28,7 +28,7 @@ export const ArticlesTable = (props: ArticlesTableProps) =>
                 {props.articles.map(i => (
                     <TableRow key={i._id} selectable={false} >
                         <TableRowColumn>{i.title}</TableRowColumn>
-                        <TableRowColumn>{i.category}</TableRowColumn>
+                        <TableRowColumn>{i.category.name}</TableRowColumn>
                         <TableRowColumn>{i.author}</TableRowColumn>
                     </TableRow>
                 ))}

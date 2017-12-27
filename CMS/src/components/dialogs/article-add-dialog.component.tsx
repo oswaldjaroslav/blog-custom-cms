@@ -9,8 +9,8 @@ import { ArticleType } from '../../types/article.type';
 import { CategoryType } from '../../types/category.type';
 import { MenuItem } from 'material-ui';
 import { TextEditor } from '../text-editor-draft.component';
-import { EditorState } from 'draft-js';
-import { stateToHTML } from 'draft-js-export-html';
+import { EditorState, convertToRaw } from 'draft-js';
+const a: any = require('draftjs-to-html');
 
 interface ArticleAddDialogProps extends InjectedFormProps {
     open: boolean;
@@ -50,7 +50,7 @@ class ArticleAddDialog extends React.Component<ArticleAddDialogProps, ArticleAdd
         ))
 
     onEditorStateChange = (editorState: EditorState) => {
-        let html = stateToHTML(editorState.getCurrentContent());
+        let html =  a.default(convertToRaw(editorState.getCurrentContent()))
         this.setState({ textEditorValue: html });
     }
 

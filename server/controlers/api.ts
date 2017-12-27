@@ -8,14 +8,20 @@ export class API {
         const newArticle: ArticleInterface = req.body;
         Article.create(newArticle)
             .then(
-                (value: ArticleModel) =>
-                    res.send(value)
+                (value: ArticleModel) => {
+                    Category.findById(value.category)
+                        .then((category: CategoryInterface) => {
+                            value.category = category;
+                            res.send(value)
+                        })
+                        .catch(err => next(err))
+                }
             )   
             .catch(err => next(err))
     }
 
     public static getArticles = (req: Request, res: Response, next: NextFunction) => {
-        Article.find({})
+        Article.find({}).populate('category')
             .then(
                 (articles: Array<ArticleInterface>) => {
                     res.send(articles);
