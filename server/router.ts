@@ -1,6 +1,7 @@
 import { Express } from 'express';
 import { Sites } from './controlers/sites';
 import { API } from './controlers/api';
+import { Auth } from './controlers/auth';
 
 export const routes = (app: Express) => {
 
@@ -17,5 +18,9 @@ export const routes = (app: Express) => {
 
     app.post('/API/category', API.createCategorie);
     app.get('/API/category', API.getCategories);
+
+    // Authentication
+
+    app.post('/auth/signup', Auth.signUp);
 
 }
