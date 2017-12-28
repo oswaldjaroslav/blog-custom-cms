@@ -5,6 +5,7 @@ export interface UserInterface extends Document {
   email: string;
   password: string;
   hookEnabled: boolean;
+  comparePasswords(candidatePassword: string, cb: Function): any;
 }
 
 let UserSchema: Schema = new Schema({
@@ -40,7 +41,7 @@ UserSchema.pre('save', function(next) {
   }
 });
 
-UserSchema.methods.comparePasswords = (candidatePassword: string, cb: Function) => {
+UserSchema.methods.comparePasswords = function (candidatePassword: string, cb: Function) {
   compare(candidatePassword, this.password, (err, isMatch) => {
     if (err) { return cb(err); }
     cb(null, isMatch);

@@ -39,4 +39,8 @@ export class Auth {
     )
   };
 
+  public static authenticate = (req: any, res: Response, next: NextFunction) => {
+    res.send({ token: Auth.createJWT(req.user) });
+  };
+
 }
