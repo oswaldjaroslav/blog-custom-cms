@@ -9,10 +9,12 @@ interface FormFieldProps  {
     custom?: any;
     label?: string;
     meta?: {touched: boolean, error: any};
+    type?: string
 }
 
 export const TextInput = (props: FormFieldProps | any) =>
     <TextField 
+    type={props.type ? props.type : 'text'}
     style={{ width: '100%' }}
     floatingLabelText={props.label}
     errorText={props.meta.touched && props.meta.error}

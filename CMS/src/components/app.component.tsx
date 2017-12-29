@@ -10,6 +10,7 @@ import { DrawerComponent } from './drawer.component';
 import { MenuBar } from './menu-bar.component';
 import { HomePage } from './home-page.component';
 import { ArticleList } from '../containers/articles-list.container';
+import { LoginPage } from '../containers/login.container';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
@@ -48,6 +49,7 @@ export class App extends React.Component<{}, AppState> {
                                 <Switch>
                                     <Route exact path="/admin" component={HomePage} />
                                     <Route path="/admin/articles" component={ArticleList} />
+                                    <Route path="/admin/login" component={LoginPage} />
                                 </Switch>
                             </div>
                         </BrowserRouter>

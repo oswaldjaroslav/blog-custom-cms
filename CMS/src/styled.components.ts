@@ -1,7 +1,14 @@
 import styled, { css } from 'styled-components';
-import Paper from 'material-ui/Paper';
 
-export const BasicPaper = styled.div``
+interface MiddleAlignedDivProps {
+    width?: string;
+    top?: string;
+}
+
+export const MiddleAlignedDiv = styled.div`
+    width: ${(props: MiddleAlignedDivProps) => props.width? props.width : '30%'};
+    margin: ${(props: MiddleAlignedDivProps) => props.top? props.top : '150px'} auto;
+`
 
 export const FlexParrent = styled.div`
     display: flex;

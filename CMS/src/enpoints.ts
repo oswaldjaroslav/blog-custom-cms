@@ -3,4 +3,5 @@ export class Endpoints {
 
     public static getArticles = `${Endpoints.serverBase}/API/article`;
     public static getCategories = `${Endpoints.serverBase}/API/category`;
+    public static login = `${Endpoints.serverBase}/auth/signin`;
 }
